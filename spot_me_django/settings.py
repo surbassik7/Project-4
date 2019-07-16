@@ -45,9 +45,8 @@ INSTALLED_APPS = [
     'requests',
     'django-google-maps',
     'python-google-places',
+    'places',
 ]
-
-GOOGLE_MAPS_API_KEY = 'AIzaSyDOwVK7bGap6b5Mpct1cjKMp7swFGi3uGg'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
