@@ -4,7 +4,7 @@ import json
 import pprint
 
 # Define the API Key.
-API_KEY = 'AIzaSyDOwVK7bGap6b5Mpct1cjKMp7swFGi3uGg'
+API_KEY = ''
 
 # Define the Client
 gmaps = googlemaps.Client(key = API_KEY)

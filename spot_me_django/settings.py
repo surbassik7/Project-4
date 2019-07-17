@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django-google-maps',
     'python-google-places',
     'places',
+    'django.contrib.gis',
 ]
 
 REST_FRAMEWORK = {
