@@ -11,6 +11,8 @@ django = "*"
 psycopg2-binary = "*"
 requests = "*"
 djangorestframework = "*"
+django-google-maps = "*"
+python-google-places = "*"
 
 [requires]
 python_version = "3.7"

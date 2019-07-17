@@ -43,10 +43,10 @@ INSTALLED_APPS = [
     'easy_maps',
     'googlemaps',
     'requests',
-    'django-google-maps',
-    'python-google-places',
-    'places',
-    'django.contrib.gis',
+    'django_google_maps',
+    'googleplaces',
+    # 'places',
+    # 'django.contrib.gis',
 ]
 
 REST_FRAMEWORK = {
