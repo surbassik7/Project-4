@@ -47,4 +47,4 @@ yoga = requests.get(BASE_URL+'location='+LOCATION+'&radius='+RADIUS+'&type='+TYP
 yoga_text = yoga.text 
 yogajson = json.loads(yoga_text)
 
-print(type(healthjson))
+
