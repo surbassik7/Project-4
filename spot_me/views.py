@@ -1,43 +1,33 @@
-from spot_me.models import Gym
-from spot_me.serializers import GymSerializer
-from django.shortcuts import render
-from rest_framework import generics
-import json
-import requests
-import googlemaps
-from googlemaps import Client
+from django.conf import settings
+from django.contrib.gis.geos import Point
+from django.http import JsonResponse
+from rest_framework import permissions, viewsets
+from rest_framework.views import APIView
+from yelpapi import YelpAPI
 
-class ListCreateGym(generics.ListCreateAPIView):
-    queryset = Gym.objects.all()
-    serializer_class = GymSerializer
-
-    def perform_create(self, serializer):
-        address = serializer.initial_data['address']
-        check_url = 'http://api.ipstack.com/check?access_key=3fea3b33a38ef7abd674c9e0515183be'
-        r = requests.get(check_url)
-        j = json.loads(r.text)
-        lat = j['latitude']
-        lon = j['longitude']
-        mylocation = (','.join([str(lat), str(lon)]))
-
-        BASE_URL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
-        LOCATION = mylocation
-        RADIUS = '2500'
-        TYPE = 'gym'
-        API_KEY = 'AIzaSyDOwVK7bGap6b5Mpct1cjKMp7swFGi3uGg'
-        KEYWORDS = ''
-
-        allgyms = requests.get(BASE_URL+'location='+LOCATION+'&radius='+RADIUS+'&type='+TYPE+'&key='+API_KEY)
-        all_text = allgyms.text
-        alljson = json.loads(all_text)
-
-        KEYWORDS = 'healthclub'
-        healthclubs = requests.get(BASE_URL+'location='+LOCATION+'&radius='+RADIUS+'&type='+TYPE+'&keyword='+KEYWORDS+'&key='+API_KEY) 
-        health_text = healthclubs.text 
-        healthjson = json.loads(health_text)
+from spot_me import models as map_models
+from spot_me import serializers as map_serializers
 
 
-        KEYWORDS = 'crossfit'
-        crossfit = requests.get(BASE_URL+'location='+LOCATION+'&radius='+RADIUS+'&type='+TYPE+'&keyword='+KEYWORDS+'&key='+API_KEY) 
-        cross_text = crossfit.text 
-        crossjson = json.loads(cross_text)
+class SearchViewSet(viewsets.ModelViewSet):
+    serializer_class = map_serializers.SearchSerializer
+    queryset = map_models.Search.objects.all()
+
+
+class YelpView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        yelp_api = YelpAPI(settings.YELP_API_KEY)
+
+        search_results = yelp_api.search_query(**self.request.GET)
+
+        term = request.GET.get('term')
+        longitude = float(request.GET.get('longitude'))
+        latitude = float(request.GET.get('latitude'))
+        results_count = search_results['total']
+        map_models.Search.objects.create(term=term,
+                                         position=Point(longitude, latitude),
+                                         results_count=results_count)
+
+        return JsonResponse(search_results)

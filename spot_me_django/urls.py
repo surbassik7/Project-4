@@ -18,15 +18,10 @@ from django.urls import path, include
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-# from spot_me.views import ListCreateGyms
 from spot_me.urls import spot_me_urls
 
 urlpatterns = [
-    url('', include(spot_me_urls)),
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # path('', include('accounts.urls')),
-# url('^api/gyms', ListCreateGyms.as_view(), name='list_gyms')
-    
+    url(r'', include(spot_me_urls)),
+    path(r'^admin/', admin.site.urls),   
 ]
 
