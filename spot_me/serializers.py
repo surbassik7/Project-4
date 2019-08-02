@@ -1,8 +1,10 @@
-from spot_me.models import Gym
-from rest_framework import serializers
+from rest_framework_gis import serializers
+
+from spot_me import models as spot_me_models
 
 
-class GymSerializer(serializers.ModelSerializer):
+class SearchSerializer(serializers.GeoModelSerializer):
+
     class Meta:
-        model = Gym
-        fields = ('id', 'name', 'address', 'location', 'photo', 'vicinity', 'phone number' 'hours of operation', 'website', 'review')
+        model = spot_me_models.Search
+        exclude = []

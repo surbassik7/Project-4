@@ -1,9 +1,9 @@
-% comment %} {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'map/css/map.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'spot_me/static/css/search.csss' %}" type="text/css">
 {% endblock extra_head %}
 
 {% block content %}
@@ -24,8 +24,8 @@
 {% block extra_js %}
 
     <!-- Must be before google maps include, as it contains initMap -->
-    <script type="text/javascript" src="{% static 'map/js/map.js' %}"></script>
+    <script type="text/javascript" src="{% static 'spot_me/static/js/search.js' %}"></script>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ gmaps }}&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap"></script>
 
-{% endblock extra_js %} {% endcomment %}
+{% endblock extra_js %}

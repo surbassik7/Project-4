@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'rest_framework',
     'rest_framework_gis',
+    'spot_me',
     'map',
 ]
-
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

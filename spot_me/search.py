@@ -48,3 +48,4 @@ yoga_text = yoga.text
 yogajson = json.loads(yoga_text)
 
 
+print(crossjson)

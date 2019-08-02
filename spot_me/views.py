@@ -5,13 +5,13 @@ from rest_framework import permissions, viewsets
 from rest_framework.views import APIView
 from yelpapi import YelpAPI
 
-from spot_me import models as map_models
-from spot_me import serializers as map_serializers
+from spot_me import models as spot_me_models
+from spot_me import serializers as spot_me_serializers
 
 
 class SearchViewSet(viewsets.ModelViewSet):
-    serializer_class = map_serializers.SearchSerializer
-    queryset = map_models.Search.objects.all()
+    serializer_class = spot_me_serializers.SearchSerializer
+    queryset = spot_me_models.Search.objects.all()
 
 
 class YelpView(APIView):
@@ -26,7 +26,7 @@ class YelpView(APIView):
         longitude = float(request.GET.get('longitude'))
         latitude = float(request.GET.get('latitude'))
         results_count = search_results['total']
-        map_models.Search.objects.create(term=term,
+        spot_me_models.Search.objects.create(term=term,
                                          position=Point(longitude, latitude),
                                          results_count=results_count)
 
