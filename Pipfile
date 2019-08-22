@@ -25,6 +25,7 @@ yelpapi = "*"
 virtualenv = "*"
 virtualenvwrapper = "*"
 djangorestframework-gis = "*"
+map = "*"
 
 [requires]
 python_version = "3.7"

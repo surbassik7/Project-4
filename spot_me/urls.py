@@ -12,5 +12,4 @@ router.register(r'searches', spot_me_views.SearchViewSet, base_name='searches')
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="spot_me/map.html")),
     url(r'^api/v1/', include(router.urls)),
-    url(r'^api/v1/yelp/search/$', spot_me_views.YelpView.as_view()),
 ]
